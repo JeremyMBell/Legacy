@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import models
 from django.http import Http404
+from content import functions
 def index(request):
     return render(request, 'index.html')
 def article_listings(request, category=''):
@@ -21,6 +22,7 @@ def all_article_listings(request):
 def article(request, artID):
     art = models.Article.objects.get(pk=int(artID))
     file = 'article.html'
+    contentStyled = functions.autoLineBreak(art.content)
     if len(str(art.background)) > 4:
         file = 'article_with_background.html'
-    return render(request, file, {'article': art})
+    return render(request, file, {'article': art, 'content': contentStyled})
