@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+{% block articletitle %}{% block title %}{{article.title}}{% endblock %}{% endblock %}
+{% block tagline %}{{article.description}}{% endblock %}
+{% block content %}
+    <p>
+        {{article.content|safe}}
+    </p>
+{% endblock %}
