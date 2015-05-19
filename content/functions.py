@@ -7,6 +7,6 @@ def autoLineBreak(uf_string):
     lines = uf_string.split('\n')
     newLines = ""
     for line in lines:
-        if len(line) > 0:
+        if len(line) > 2:
             newLines += "<p>" + line + "</p>"
     return newLines
