@@ -13,7 +13,7 @@ def article_listings(request, category=''):
                 break;
         if enteredType == '0':
             raise Http404("Page not found")
-        return  render(request, 'article_listings.html', {'category': category.capitalize(), 'articles': models.Article.objects.filter(type = enteredType)})
+        return  render(request, 'article_listings.html', {'category': category.capitalize(), 'articles': models.Article.objects.filter(type__contains = enteredType)})
     else:
         raise Http404("Page not found")
     return  render(request, 'article_listings.html', {'category': category.capitalize()})

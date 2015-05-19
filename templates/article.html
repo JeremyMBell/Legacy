@@ -2,7 +2,7 @@
 {% block articletitle %}{% block title %}{{article.title}}{% endblock %}{% endblock %}
 {% block tagline %}{% block description %}{{article.description}}{% endblock %}{% endblock %}
 {% block content %}
-    <div id="article-start">
+    <article id="article-start">
         {{content|safe}}
-    </div>
+    </article>
 {% endblock %}

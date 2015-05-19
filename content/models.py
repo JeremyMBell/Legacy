@@ -12,8 +12,9 @@ class Article(models.Model):
         ('7', 'medicine'),
         ('8', 'everyday')
     )
-    type = models.CharField(max_length=2, choices=TYPE_CHOICES)
+    type = models.MultipleChoiceField(choices=TYPE_CHOICES)
     title = models.CharField(max_length = 40)
+    keywords = models.TextField()
     background = models.TextField(blank=True)
     description = models.TextField()
     content = models.TextField()
