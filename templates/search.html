@@ -1,0 +1,10 @@
+{% extends 'articles_listing.html' %}
+{% block articletitle %}{% block title %}
+		{% if q|length > 0 %}
+			{{q}}
+		{% else %}
+			Search
+		{% endif %}{% endblock %}{% endblock %}
+{% block tagline %}
+<form action="/search" method="GET" class="search srch-lrg"><input type="text" placeholder="Search for articles!" name="q"><input type="submit" value="*"></form>
+{% endblock %}

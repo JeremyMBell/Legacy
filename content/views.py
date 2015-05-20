@@ -11,7 +11,7 @@ def all_article_listings(request):
     return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
 def article_listings(request, category=''):
     #If a category was entered...
-    if category != '':
+    if not (category == '' or category.lower() == 'all'):
         articles = [] #initializing to use outside of try-catch
         cat = models.ArticleCategory()
         #Select ArticleCategory corresponding to category entered and select
@@ -45,3 +45,27 @@ def article(request, artID):
         outFile = 'article_with_background.html'
 
     return render(request, outFile, {'CATEGORIES': CATEGORIES, 'ARTICLES': ARTICLES, 'article': art, 'content': contentStyled})
+
+def search(request):
+    #This algorithm probably is inefficient due to all the looping, but this will
+    #work for now
+    if request.GET:
+        original = request.GET['q']#original string
+        allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"#don't confuse articles and easy to split tags
+        new = ''
+        #Reformated for tags
+        for letter in original:
+            if letter in allowed:
+                new += letter
+            else:
+                new += ' '
+        tags = new.split(' ')
+        articles = []#Articles to return
+        for tag in tags:
+            addingNew = models.Article.filter(content__icontains = tag)
+            #No duplicate articles
+            for article in addingNew:
+                if article not in articles:
+                    articles += article#add an article
+        return render(request, 'search.html', {'CATEGORIES': CATEGORIES, 'articles': articles})
+    return render(request, 'search.html', {'CATEGORIES': CATEGORIES})
