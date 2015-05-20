@@ -51,7 +51,7 @@ def search(request):
     #work for now
     if request.GET:
         original = request.GET['q']#original string
-        allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"#don't confuse articles and easy to split tags
+        allowed = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"#don't confuse articles // easy to split tags
         new = ''
         #Reformated for tags
         for letter in original:
@@ -67,5 +67,5 @@ def search(request):
             for article in addingNew:
                 if article not in articles:
                     articles += article#add an article
-        return render(request, 'search.html', {'CATEGORIES': CATEGORIES, 'articles': articles})
+        return render(request, 'search.html', {'CATEGORIES': CATEGORIES, 'articles': articles, 'q': original})
     return render(request, 'search.html', {'CATEGORIES': CATEGORIES})
