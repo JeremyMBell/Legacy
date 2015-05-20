@@ -1,0 +1,15 @@
+.search {
+	color: #333;
+	padding: 0;
+	border-radius: .1em;
+	border: 3px #AAA solid;
+	box-shadow: .01em .01em .02em #000;
+}
+.search * {
+	height: 1.5em;
+	min-width: 1.5em;
+	margin: 0;
+	box-sizing: border-box;
+	background: none;
+	border: none;
+}
