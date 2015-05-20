@@ -7,7 +7,7 @@ class ArticleCategory(models.Model):
     def __str__(self):
         return str(self.name)
 class Article(models.Model):
-    type = models.ManyToMany(ArticleCaegory)
+    type = models.ManyToManyField(ArticleCaegory)
     title = models.CharField(max_length = 40)
     keywords = models.TextField()
     background = models.TextField(blank=True)
