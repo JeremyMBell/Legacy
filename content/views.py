@@ -3,7 +3,6 @@ import models
 from django.http import Http404
 from content import functions
 CATEGORIES = models.ArticleCategory.objects.all() #For navigation
-
 def index(request):
     return render(request, 'index.html', {'CATEGORIES': CATEGORIES})
 def all_article_listings(request):
@@ -11,7 +10,7 @@ def all_article_listings(request):
 def article_listings(request, category=''):
     #If a category was entered...
     if category != '':
-        articles #initializing to use outside of try-catch
+        articles = [] #initializing to use outside of try-catch
 
         #Select ArticleCategory corresponding to category entered and select
         #all articles under this category
