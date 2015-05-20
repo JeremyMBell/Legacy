@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
-{% block articletitle %}{% block title %}{{category}}{% endblock %}{% endblock %}
-{% block tagline %}Latest Articles{% endblock %}
+{% block articletitle %}{% block title %}{{category.name}}{% endblock %}{% endblock %}
+{% block tagline %}{{category.description}}{% endblock %}
 {% block content %}
     {% for article in articles %}
     <a href="/articles/view/{{article.id}}">

@@ -120,19 +120,21 @@
 
         <div class="portfolio-centered">
             <div class="recentitems portfolio">
-				<div class="portfolio-item graphic-design">
+                {% for art in ARTICLES %}
+                <div class="portfolio-item graphic-design">
 					<div class="he-wrap tpl6">
-					<img src="{% static 'bootstrap/img/portfolio/portfolio_09.jpg' %}" alt="">
+					<img src="{% if art.background|length > 4 %}{{art.background}}{% else %}https://hiepsfinance.files.wordpress.com/2013/02/mp900439432.jpeg{% endif %}" alt="">
 						<div class="he-view">
+                            <a href="/article/view/{{art.id}}" style="display: inherit;">
 							<div class="bg a0" data-animate="fadeIn">
-                                <h3 class="a1" data-animate="fadeInDown">A Graphic Design Item</h3>
-                                <a data-rel="prettyPhoto" href="{% static 'bootstrap/img/portfolio/portfolio_09.jpg' %}" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-search"></i></a>
-                                <a href="single-project.html" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
+                                <h3 class="a1" data-animate="fadeInDown">{{art.title}}</h3>
+                                <p class="a2">{{art.description}}</p>
                         	</div><!-- he bg -->
+                            </a>
 						</div><!-- he view -->
 					</div><!-- he wrap -->
 				</div><!-- end col-12 -->
-
+                {% endfor %}
                 <div class="portfolio-item web-design">
                     <div class="he-wrap tpl6">
 					<img src="{% static 'bootstrap/img/portfolio/portfolio_02.jpg' %}" alt="">
@@ -272,7 +274,7 @@
 	 	</div><! --/container -->
 	 </div><! --/twrap -->
 
-	
+
 
 
     <!-- Bootstrap core JavaScript

@@ -3,24 +3,27 @@ import models
 from django.http import Http404
 from content import functions
 CATEGORIES = models.ArticleCategory.objects.all() #For navigation
+NUM_ARTICLES = models.Article.objects.all().count()
+ARTICLES = models.Article.objects.filter(id__gte = (NUM_ARTICLES - 10))
 def index(request):
-    return render(request, 'index.html', {'CATEGORIES': CATEGORIES})
+    return render(request, 'index.html', {'CATEGORIES': CATEGORIES, 'ARTICLES': ARTICLES})
 def all_article_listings(request):
     return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
 def article_listings(request, category=''):
     #If a category was entered...
     if category != '':
         articles = [] #initializing to use outside of try-catch
-
+        cat = models.ArticleCategory()
         #Select ArticleCategory corresponding to category entered and select
         #all articles under this category
-        #try:
-        articles = models.ArticleCategory.objects.get(name__iexact = category).article_set.all().order_by("-date", "title")
+        try:
+            cat = models.ArticleCategory.objects.get(name__iexact = category)
+            articles = cat.article_set.all().order_by("-date", "title")
         #Category doesn't exist, so 404 Error
-        #except:
-        #    raise Http404("Article Category not found.")
+        except:
+            raise Http404("Article Category not found.")
         #Otherwise, successful!
-        return  render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': category.capitalize(), 'articles': articles})
+        return  render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': cat, 'articles': articles})
     #Else return all articles
     return  all_article_listings(request)
 
@@ -41,4 +44,4 @@ def article(request, artID):
     if len(str(art.background)) > 4:
         outFile = 'article_with_background.html'
 
-    return render(request, outFile, {'CATEGORIES': CATEGORIES,'article': art, 'content': contentStyled})
+    return render(request, outFile, {'CATEGORIES': CATEGORIES, 'ARTICLES': ARTICLES, 'article': art, 'content': contentStyled})
