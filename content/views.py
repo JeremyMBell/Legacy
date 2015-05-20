@@ -5,7 +5,7 @@ from content import functions
 CATEGORIES = models.ArticleCategory.objects.all() #For navigation
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'CATEGORIES': CATEGORIES})
 def all_article_listings(request):
     return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
 def article_listings(request, category=''):
