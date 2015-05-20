@@ -15,4 +15,4 @@ class Article(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add = True, blank=True)
     def __str__(self):
-        return str(self.title) + "-" + self.type
+        return str(self.title) + "-" + str(self.type)
