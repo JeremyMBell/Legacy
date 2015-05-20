@@ -61,12 +61,6 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-               {% if user.is_active and user.is_staff %}
-        <div id="user-tools">
-            <strong></strong>.
-            
-        </div>
-        {% endif %}
               	  <p class="centered"><h4>{% trans 'Welcome,' %}</h4></p>
               	  <h5 class="centered">{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %}</h5>
               	  	{% block userlinks %}
@@ -110,8 +104,7 @@
           	<h3><i class="fa fa-angle-right"></i>{% block breadcrumbs %}
     <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
     {% if title %} &rsaquo; {{ title }}{% endif %}
-    {% endblock %}
-    {% endif %}</h3>
+    {% endblock %}</h3>
 	
 
     {% block messages %}
