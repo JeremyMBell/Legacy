@@ -2,13 +2,12 @@ from django.shortcuts import render
 import models
 from django.http import Http404
 from content import functions
-DEFAULTS = [
-    models.ArticleCategory.objects.all(), #For navigation
-]
+CATEGORIES = models.ArticleCategory.objects.all() #For navigation
+
 def index(request):
     return render(request, 'index.html')
 def all_article_listings(request):
-    return render(request, 'article_listings.html', {'DEFAULTS': DEFAULTS, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
+    return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
 def article_listings(request, category=''):
     #If a category was entered...
     if category != '':
@@ -22,7 +21,7 @@ def article_listings(request, category=''):
         except:
             raise Http404("Article Category not found.")
         #Otherwise, successful!
-        return  render(request, 'article_listings.html', {'DEFAULTS': DEFAULTS, 'category': category.capitalize(), 'articles': articles})
+        return  render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': category.capitalize(), 'articles': articles})
     #Else return all articles
     return  all_article_listings(request)
 
@@ -43,4 +42,4 @@ def article(request, artID):
     if len(str(art.background)) > 4:
         outFile = 'article_with_background.html'
 
-    return render(request, outFile, {'DEFAULTS': DEFAULTS,'article': art, 'content': contentStyled})
+    return render(request, outFile, {'CATEGORIES': CATEGORIES,'article': art, 'content': contentStyled})
