@@ -4,6 +4,7 @@
 	border-radius: .1em;
 	border: 3px #AAA solid;
 	box-shadow: .01em .01em .02em #000;
+	margin-top: .2em;
 }
 .search * {
 	height: 1.5em;
