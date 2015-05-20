@@ -66,6 +66,6 @@ def search(request):
             #No duplicate articles
             for article in addingNew:
                 if article not in articles:
-                    articles += article#add an article
+                    articles.append(article)#add an article
         return render(request, 'search.html', {'CATEGORIES': CATEGORIES, 'articles': articles, 'q': original})
     return render(request, 'search.html', {'CATEGORIES': CATEGORIES})
