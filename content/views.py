@@ -11,7 +11,7 @@ def all_article_listings(request):
 def article_listings(request, category=''):
     #If a category was entered...
     if category != '':
-        articles = '' #initializing to use outside of try-catch
+        articles #initializing to use outside of try-catch
 
         #Select ArticleCategory corresponding to category entered and select
         #all articles under this category
