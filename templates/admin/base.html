@@ -61,7 +61,7 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-              	  <p class="centered"><h4>{% trans 'Welcome,' %}</h4></p>
+              	  <h3 class="centered">{% trans 'Welcome,' %}</h3>
               	  <h5 class="centered">{% filter force_escape %}{% firstof user.get_short_name user.get_username %}{% endfilter %}</h5>
               	  	{% block userlinks %}
 			{% url 'django-admindocs-docroot' as docsroot %}
@@ -78,7 +78,7 @@
 				<li class="mt">
                 <a href="{% url 'admin:password_change' %}">
 					<i class="fa fa-cogs"></i>
-					<span>{% trans 'Change password' %}</a>\
+					<span>{% trans 'Change password' %}</span>
 					</a>
 				</li>
              {% endif %}
