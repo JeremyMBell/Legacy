@@ -15,7 +15,7 @@ def article_listings(request, category=''):
         #Select ArticleCategory corresponding to category entered and select
         #all articles under this category
         #try:
-        articles = models.ArticleCategory.objects.get(name__iexact = category).article_set.all().sort_by("-date", "title")
+        articles = models.ArticleCategory.objects.get(name__iexact = category).article_set.all().order_by("-date", "title")
         #Category doesn't exist, so 404 Error
         #except:
         #    raise Http404("Article Category not found.")
