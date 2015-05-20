@@ -62,7 +62,7 @@ def search(request):
         tags = new.split(' ')
         articles = []#Articles to return
         for tag in tags:
-            addingNew = models.Article.filter(content__icontains = tag)
+            addingNew = models.Article.objects.filter(content__icontains = tag)
             #No duplicate articles
             for article in addingNew:
                 if article not in articles:
