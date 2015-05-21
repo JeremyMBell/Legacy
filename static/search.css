@@ -31,6 +31,6 @@
 	bottom: 0;
 	background-image: url('search.gif');
 	background-repeat: no-repeat;
-	background-size: 90% 90%;
+	background-size: 75% auto;
 	background-position: center center;
 }
