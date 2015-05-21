@@ -2,12 +2,16 @@
 {% block articletitle %}{% block title %}{{category.name}}{% endblock %}{% endblock %}
 {% block tagline %}{{category.description}}{% endblock %}
 {% block content %}
+    {% if articles|length > 0 %}
     {% for article in articles %}
     <a href="/articles/view/{{article.id}}">
         <h2>{{article.title}}</h2>
         <p>{{article.description}}</p>
     </a>
     {% endfor %}
+    {% else %}
+    <h2>Sorry, no articles matching your parameters were found.</h2>
+    {% endif %}
 
 {% endblock %}
 {% block latestarticles %}{% endblock %}<!-- Latest Articles tab would be confusing and redundant in this case -->
