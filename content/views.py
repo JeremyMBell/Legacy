@@ -4,10 +4,8 @@ from django.http import Http404
 from content import functions
 def CATEGORIES():
     return models.ArticleCategory.objects.all() #For navigation
-def NUM_ARTICLES():
-    return models.Article.objects.all().count()
 def ARTICLES():
-    return models.Article.objects.filter(id__gte = (NUM_ARTICLES() - 11))
+    return models.Article.objects.filter(id__gte = (models.Article.objects.all().count() - 10))
 def index(request):
     return render(request, 'index.html', {'CATEGORIES': CATEGORIES(), 'ARTICLES': ARTICLES()})
 def all_article_listings(request):
