@@ -9,7 +9,7 @@ def ARTICLES():
 def index(request):
     return render(request, 'index.html', {'CATEGORIES': CATEGORIES(), 'ARTICLES': ARTICLES()})
 def all_article_listings(request):
-    return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES(), 'category': 'All Articles', 'articles':models.Article.objects.all().order_by("-date", "title")})
+    return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES(), 'articles':models.Article.objects.all().order_by("-date", "title")})
 def article_listings(request, category=''):
     #If a category was entered...
     if not (category == '' or category.lower() == 'all'):

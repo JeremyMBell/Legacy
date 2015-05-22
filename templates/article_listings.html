@@ -1,5 +1,11 @@
 {% extends 'index.html' %}
-{% block articletitle %}{% block title %}{{category.name}}{% endblock %}{% endblock %}
+{% block articletitle %}{% block title %}
+{% if category.name|length > 1 %}
+{{category.name}}
+{% else %}
+All Articles
+{% endif %}
+{% endblock %}{% endblock %}
 {% block tagline %}{{category.description}}{% endblock %}
 {% block content %}
     {% if articles|length > 0 %}
