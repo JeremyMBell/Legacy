@@ -2,13 +2,16 @@ from django.shortcuts import render
 import models
 from django.http import Http404
 from content import functions
-CATEGORIES = models.ArticleCategory.objects.all() #For navigation
-NUM_ARTICLES = models.Article.objects.all().count()
-ARTICLES = models.Article.objects.filter(id__gte = (NUM_ARTICLES - 11))
+def CATEGORIES():
+    return models.ArticleCategory.objects.all() #For navigation
+def NUM_ARTICLES():
+    return models.Article.objects.all().count()
+def ARTICLES():
+    return models.Article.objects.filter(id__gte = (NUM_ARTICLES - 11))
 def index(request):
-    return render(request, 'index.html', {'CATEGORIES': CATEGORIES, 'ARTICLES': ARTICLES})
+    return render(request, 'index.html', {'CATEGORIES': CATEGORIES(), 'ARTICLES': ARTICLES()})
 def all_article_listings(request):
-    return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': 'All Articles', 'articles':models.Article.objects.all().sort_by("-date", "title")})
+    return render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES(), 'category': 'All Articles', 'articles':models.Article.objects.all().order_by("-date", "title")})
 def article_listings(request, category=''):
     #If a category was entered...
     if not (category == '' or category.lower() == 'all'):
@@ -23,7 +26,7 @@ def article_listings(request, category=''):
         except:
             raise Http404("Article Category not found.")
         #Otherwise, successful!
-        return  render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES, 'category': cat, 'articles': articles})
+        return  render(request, 'article_listings.html', {'CATEGORIES': CATEGORIES(), 'category': cat, 'articles': articles})
     #Else return all articles
     return  all_article_listings(request)
 
@@ -44,7 +47,7 @@ def article(request, artID):
     if len(str(art.background)) > 4:
         outFile = 'article_with_background.html'
 
-    return render(request, outFile, {'CATEGORIES': CATEGORIES, 'ARTICLES': ARTICLES, 'article': art, 'content': contentStyled})
+    return render(request, outFile, {'CATEGORIES': CATEGORIES(), 'ARTICLES': ARTICLES(), 'article': art, 'content': contentStyled})
 
 def search(request):
     #This algorithm probably is inefficient due to all the looping, but this will
@@ -62,10 +65,14 @@ def search(request):
         tags = new.split(' ')
         articles = []#Articles to return
         for tag in tags:
-            addingNew = models.Article.objects.filter(content__icontains = tag)
+            contentSearch = models.Article.objects.filter(content__icontains = tag)
+            keywordSearch = models.Article.objects.filter(keywords__icontains = tag)
             #No duplicate articles
-            for article in addingNew:
+            for article in contentSearch:
                 if article not in articles:
                     articles.append(article)#add an article
-        return render(request, 'search.html', {'CATEGORIES': CATEGORIES, 'articles': articles, 'q': original})
-    return render(request, 'search.html', {'CATEGORIES': CATEGORIES})
+            for article in keywordSearch:
+                if article not in articles:
+                    articles.append(article)
+        return render(request, 'search.html', {'CATEGORIES': CATEGORIES(), 'articles': articles, 'q': original})
+    return render(request, 'search.html', {'CATEGORIES': CATEGORIES()})
