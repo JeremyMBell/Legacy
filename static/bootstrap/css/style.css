@@ -467,3 +467,11 @@ csmall2 {
 	padding-right: 15px;
 	font-size: 18px;
 }
+/*MY ADDITIONS */
+#article-start p {
+	width: 80%;
+	margin: .25em auto;
+}
+#article-start p img {
+	margin: 0 auto;
+}
