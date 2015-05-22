@@ -471,7 +471,9 @@ csmall2 {
 #article-start p {
 	width: 80%;
 	margin: .5em auto;
+	clear: both;
 }
 #article-start p img {
 	margin: 0 auto;
+	display: block;
 }
